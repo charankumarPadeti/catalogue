@@ -6,7 +6,7 @@ pipeline {
     }
     environment { 
         packageVesion = ''
-        nexusURL = '172.31.37.164'
+        nexusURL = '172.31.37.164:8081'
     }
     options {
         timeout(time: 1, unit: 'HOURS')
