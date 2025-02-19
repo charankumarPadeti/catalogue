@@ -71,10 +71,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh """
-                    echo " Here i wrote shell script"
-                    #sleep 10
-                """
+                build job: 'catalogue-deploy', wait: true, parameters: [ 
+                string(name: 'version', value: "${packageVesion}"),       
+                string(name:'environment', value: "dev")]
             }
         }
     }
