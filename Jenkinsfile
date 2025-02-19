@@ -50,25 +50,25 @@ pipeline {
                 """
             }
         }
-        // stage('Publish artifacts') {
-        //     steps {
-        //         nexusArtifactUploader(
-        //             nexusVersion: 'nexus3',
-        //             protocol: 'http',
-        //             nexusUrl: "${nexusURL}",
-        //             groupId: 'com.roboshop',
-        //             version: "${packageVesion}",
-        //             repository: 'catalogue',
-        //             credentialsId: 'nexus-auth',
-        //             artifacts: [
-        //                 [artifactId: 'catalogue',
-        //                     classifier: '',
-        //                     file: 'catalogue.zip',
-        //                     type: 'zip']
-        //             ]
-        //         )
-        //     }
-        // }
+        stage('Publish artifacts') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${nexusURL}",
+                    groupId: 'com.roboshop',
+                    version: "${packageVesion}",
+                    repository: 'catalogue',
+                    credentialsId: 'nexus-auth',
+                    artifacts: [
+                        [artifactId: 'catalogue',
+                            classifier: '',
+                            file: 'catalogue.zip',
+                            type: 'zip']
+                    ]
+                )
+            }
+        }
         stage('Deploy') {
             steps {
                 sh """
