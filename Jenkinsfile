@@ -34,69 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Install dependencies') {
-            steps {
-                sh """
-                    npm install
-                """
-            }
-        }
-
-        stage('Unit tests') {
-            steps {
-                sh """
-                    echo "unit tests will run here "
-                """
-            }
-        }
-
-        stage('Sonar Scan'){
-            steps{
-                sh """
-                    sonar-scanner
-                """
-            }
-        }
-        stage('Build') {
-            steps {
-                sh """
-                    ls -la
-                    zip -q -r catalogue.zip ./* -x ".git" -x "*.zip"
-                    ls -ltr
-                """
-            }
-        }
-        stage('Publish artifacts') {
-            steps {
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: "${nexusURL}",
-                    groupId: 'com.roboshop',
-                    version: "${packageVesion}",
-                    repository: 'catalogue',
-                    credentialsId: 'nexus-auth',
-                    artifacts: [
-                        [artifactId: 'catalogue',
-                            classifier: '',
-                            file: 'catalogue.zip',
-                            type: 'zip']
-                    ]
-                )
-            }
-        }
-        stage('Deploy') {
-            when{
-                expression{
-                    params.Deploy == 'true'
-                }
-            }
-            steps {
-                build job: 'catalogue-deploy', wait: true, parameters: [ 
-                string(name: 'version', value: "${packageVesion}"),       
-                string(name:'environment', value: "dev")]
-            }
-        }
+        
     }
     // Post build means build ipoena tharuwatha em cheyali
     post { 
