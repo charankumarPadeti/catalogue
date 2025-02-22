@@ -87,7 +87,9 @@ pipeline {
         }
         stage('Deploy') {
             when{
-                params.Deploy = true
+                expression{
+                    params.Deploy = true
+                }
             }
             steps {
                 build job: 'catalogue-deploy', wait: true, parameters: [ 
