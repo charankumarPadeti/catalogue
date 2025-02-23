@@ -16,5 +16,5 @@ def configMap = [
 // else{
 
 // }
-
+echo "Hello world "
 env
